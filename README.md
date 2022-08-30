@@ -1,1 +1,4 @@
-# NC2-Hangwriting2StandardCalendar
+# NC2-LetterToEvent
+
+오프라인 캘린더와 노트의 손글씨를 기본 캘린더 앱에 일정으로 등록하고 싶었으나
+손글씨는 어렵네요
