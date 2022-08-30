@@ -17,6 +17,7 @@
 		C5F69ACA28BC538400BD823C /* LetterToEventUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F69AC928BC538400BD823C /* LetterToEventUITests.swift */; };
 		C5F69ACC28BC538400BD823C /* LetterToEventUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F69ACB28BC538400BD823C /* LetterToEventUITestsLaunchTests.swift */; };
 		C5F69AD928BC795A00BD823C /* MiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F69AD828BC795A00BD823C /* MiddleViewController.swift */; };
+		C5F69B2028BDC11A00BD823C /* EventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F69B1F28BDC11A00BD823C /* EventData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		C5F69AC928BC538400BD823C /* LetterToEventUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterToEventUITests.swift; sourceTree = "<group>"; };
 		C5F69ACB28BC538400BD823C /* LetterToEventUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterToEventUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C5F69AD828BC795A00BD823C /* MiddleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleViewController.swift; sourceTree = "<group>"; };
+		C5F69B1F28BDC11A00BD823C /* EventData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				C5F69AB328BC538400BD823C /* LaunchScreen.storyboard */,
 				C5F69AB628BC538400BD823C /* Info.plist */,
 				C5F69AD828BC795A00BD823C /* MiddleViewController.swift */,
+				C5F69B1F28BDC11A00BD823C /* EventData.swift */,
 			);
 			path = LetterToEvent;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				C5F69AA928BC538300BD823C /* AppDelegate.swift in Sources */,
 				C5F69AAB28BC538300BD823C /* SceneDelegate.swift in Sources */,
 				C5F69AD928BC795A00BD823C /* MiddleViewController.swift in Sources */,
+				C5F69B2028BDC11A00BD823C /* EventData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
