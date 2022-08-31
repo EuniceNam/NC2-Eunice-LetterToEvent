@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EventBox: UIView {
+class EventBox: UIStackView {
 
     let title = UILabel()
     let location = UILabel()
@@ -15,28 +15,25 @@ class EventBox: UIView {
     let endTime = UILabel()
     
     let pad: CGFloat = 8.0
-    
+
     init(eventData: EventData) {
         super.init(frame: CGRect.zero)
         commonInit(eventData)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         fatalError("init(coder:) has not been implemented")
     }
     
     func commonInit(_ eventData: EventData) {
         // MARK: Debugging 중
-        // 일정 저장 잘 되는데 화면만 안 뜸
         // 화면에서 길게 눌러 수정도 추가 필요(업데이트는 어떻게 해야하지?)
-        backgroundColor = .systemMint.withAlphaComponent(0.3)
+        // backgroundColor = .systemMint.withAlphaComponent(0.3)
         
         // 초기값
         title.text = eventData.title
         location.text = eventData.location
-        
-        // date 말고 text 로 할까?
         if eventData.isAllDay {
             startTime.text = "하루 종일"
         } else {
@@ -47,6 +44,7 @@ class EventBox: UIView {
                 endTime.text = eventData.endDate?.formatted(date: .abbreviated, time: .shortened)
             }
         }
+
         // 레이아웃 관련
         // 폰트
         title.font = .preferredFont(forTextStyle: .headline)
@@ -56,16 +54,10 @@ class EventBox: UIView {
         [location, endTime].forEach {
             $0.textColor = .systemGray
         }
-//        location.font = .preferredFont(forTextStyle: .callout)
-//        location.textColor = .systemGray
-//        startTime.font = .preferredFont(forTextStyle: .callout)
-//        endTime.font = .preferredFont(forTextStyle: .callout)
-//        endTime.textColor = .systemGray
 
         // 스택뷰
-        let horizontalStackView = UIStackView()
-        horizontalStackView.axis = .horizontal
-        horizontalStackView.spacing = 4
+        axis = .horizontal
+        spacing = 4
         let titleLocationStackView = UIStackView()
         let timeStackView = UIStackView()
         titleLocationStackView.axis = .vertical
@@ -78,19 +70,9 @@ class EventBox: UIView {
         timeStackView.addArrangedSubview(startTime)
         timeStackView.addArrangedSubview(endTime)
 
-        horizontalStackView.addArrangedSubview(titleLocationStackView)
-        horizontalStackView.addArrangedSubview(timeStackView)
+        addArrangedSubview(titleLocationStackView)
+        addArrangedSubview(timeStackView)
         
-        addSubview(horizontalStackView)
-        
-        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-//            topAnchor.constraint(equalTo: superview?.topAnchor),
-            
-            horizontalStackView.topAnchor.constraint(equalTo: topAnchor),
-            horizontalStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            horizontalStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
+        translatesAutoresizingMaskIntoConstraints = false
     }
 }

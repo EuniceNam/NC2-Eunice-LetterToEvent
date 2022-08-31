@@ -36,10 +36,9 @@ class MiddleViewController: UIViewController {
 
         testImageView.image = image
         testImageView.backgroundColor = .systemGray6
-        testImageView.layer.cornerRadius = 4
         eventPreviewTextView.text = ""
         eventStackView.axis = .vertical
-        eventStackView.spacing = 8
+        eventStackView.spacing = 16
         eventStackView.translatesAutoresizingMaskIntoConstraints = false
 //        scrollView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
 //        scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -125,7 +124,10 @@ extension MiddleViewController {
             if ev.isValidEvent() {
 //                let dummyview = randomColoredView()
 //                eventStackView.addArrangedSubview(dummyview)
-                eventStackView.addArrangedSubview(EventBox(eventData: ev))
+                let tmpview = EventBox(eventData: ev)
+                eventStackView.addArrangedSubview(tmpview)
+                
+                print(ev.title)
             }
         }
     }
@@ -134,7 +136,7 @@ extension MiddleViewController {
         let view = UIView()
         view.backgroundColor = UIColor(displayP3Red: 1.0, green: .random(in: 0...1), blue: .random(in: 0...1), alpha: .random(in: 0...1))
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: .random(in: 100...400)).isActive = true
+        view.heightAnchor.constraint(equalToConstant: .random(in: 10...40)).isActive = true
         return view
     }
 }
