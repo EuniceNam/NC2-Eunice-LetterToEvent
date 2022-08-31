@@ -16,40 +16,59 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="손글씨를 일정으로" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtD-jj-KFJ">
-                                <rect key="frame" x="146" y="107" width="122" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLc-KK-0fv">
+                                <rect key="frame" x="20" y="392.5" width="374" height="37"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="글씨 스캔하기">
+                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle2"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="chooseSourceForLetter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o2T-TZ-ebg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEi-w8-tOf">
+                                <rect key="frame" x="20" y="520.5" width="374" height="37"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="캘린더 스캔하기">
+                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle2"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="chooseSourceForCalendar:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gJ9-ed-RrT"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="글씨를 일정으로" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtD-jj-KFJ">
+                                <rect key="frame" x="20" y="185" width="374" height="30"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJk-no-N0J">
-                                <rect key="frame" x="182.5" y="493" width="49" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="앨범"/>
-                                <connections>
-                                    <action selector="presentPhotoPicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5UY-WF-iN0"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wkj-Xf-3QP">
-                                <rect key="frame" x="176.5" y="345" width="61" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="카메라"/>
-                                <connections>
-                                    <action selector="scanDocument:" destination="BYZ-38-t0r" eventType="touchUpInside" id="G20-D6-QN1"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bLc-KK-0fv" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="BbL-6z-GsY"/>
+                            <constraint firstItem="bLc-KK-0fv" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-64" id="GW9-jb-9eg"/>
+                            <constraint firstItem="bEi-w8-tOf" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.0478036" id="Pv0-hH-OZv"/>
+                            <constraint firstItem="bLc-KK-0fv" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.309179" constant="246" id="S3L-b5-eJ5"/>
+                            <constraint firstItem="DtD-jj-KFJ" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.379227" constant="217" id="Wvn-1T-5V0"/>
+                            <constraint firstItem="DtD-jj-KFJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="97" id="XU3-fD-eHK"/>
+                            <constraint firstItem="bEi-w8-tOf" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="64" id="c3Y-2y-N2q"/>
+                            <constraint firstItem="bEi-w8-tOf" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dEL-sU-Xml"/>
+                            <constraint firstItem="DtD-jj-KFJ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="hRI-OZ-oAq"/>
+                            <constraint firstItem="DtD-jj-KFJ" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.0387597" id="hnA-RA-Mdv"/>
+                            <constraint firstItem="bLc-KK-0fv" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.0478036" id="pO6-el-3pe"/>
+                            <constraint firstItem="bEi-w8-tOf" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.347826" constant="230" id="wjE-g3-ahH"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Fvk-wd-aLj"/>
+                    <connections>
+                        <outlet property="calendarScanButton" destination="bEi-w8-tOf" id="xYQ-bC-ZxF"/>
+                        <outlet property="textScanButton" destination="bLc-KK-0fv" id="lCh-87-XAq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="778" y="84"/>
+            <point key="canvasLocation" x="776.81159420289862" y="83.705357142857139"/>
         </scene>
         <!--Middle View Controller-->
         <scene sceneID="ZnM-Pi-GaC">
@@ -59,17 +78,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gP-i5-yfA">
-                                <rect key="frame" x="192" y="53" width="30" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DEBUG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gP-i5-yfA">
+                                <rect key="frame" x="192" y="53" width="57" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ff-tn-Udo">
-                                <rect key="frame" x="28" y="82" width="347" height="267"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="l9r-kB-hHy">
                                 <rect key="frame" x="28" y="395" width="347" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -111,6 +126,10 @@
                                     <action selector="addEventAndFinish:" destination="ud4-UF-MOh" eventType="touchUpInside" id="1Qd-et-LfN"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ff-tn-Udo">
+                                <rect key="frame" x="34" y="82" width="377" height="267"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="x32-xE-aAS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -124,31 +143,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qh9-2M-wXO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1473.913043478261" y="83.705357142857139"/>
+            <point key="canvasLocation" x="1852" y="84"/>
         </scene>
         <!--View Controller-->
-        <scene sceneID="mLi-WV-2De">
+        <scene sceneID="Nab-gT-bqR">
             <objects>
-                <viewController storyboardIdentifier="RESULTVC" id="Kyv-wt-bbP" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="SU8-cW-TEl">
+                <viewController id="O0n-jd-DSi" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="G3f-J6-hq1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ResultVC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oU0-rM-oFw">
-                                <rect key="frame" x="186" y="438" width="70" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="jni-Jp-bIR"/>
+                        <viewLayoutGuide key="safeArea" id="wga-4q-gI5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ncw-GP-vCW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rlN-nQ-wmx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2166.666666666667" y="83.705357142857139"/>
+            <point key="canvasLocation" x="2648" y="84"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Xnf-g9-CfE">

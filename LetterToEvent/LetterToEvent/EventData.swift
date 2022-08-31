@@ -67,7 +67,7 @@ struct EventData {
             title = "No title"
         }
         
-        if !startDateArray.compactMap{$0}.isEmpty {
+        if !startDateArray.compactMap {$0}.isEmpty {
             if startDateArray[3] == nil {
                 isAllDay = true
             }
@@ -79,7 +79,7 @@ struct EventData {
                 minute: startDateArray[3])
             self.startDate = Calendar.current.date(from: startDateComponent)
         }
-        if !endDateArray.compactMap{$0}.isEmpty {
+        if !endDateArray.compactMap {$0}.isEmpty {
             let endDateComponent = DateComponents(
                 year: Calendar.current.component(.year, from: Date.now),
                 month: endDateArray[0],
