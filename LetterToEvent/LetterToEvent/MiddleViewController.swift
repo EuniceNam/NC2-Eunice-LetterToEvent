@@ -19,7 +19,6 @@ class MiddleViewController: UIViewController {
     var textRecognitionRequest = VNRecognizeTextRequest()
     var testResultViewController: UIViewController?
 
-    @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var testImageView: UIImageView!
     @IBOutlet weak var textView: UITextView!
     var transcript = ""
@@ -29,29 +28,26 @@ class MiddleViewController: UIViewController {
     let eventStore = EKEventStore()
     @IBOutlet weak var eventPreviewTextView: UITextView!
 
+//    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var eventStackView: UIStackView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textLabel.text = "testImage"
-        textLabel.backgroundColor = .green
         testImageView.image = image
-        testImageView.backgroundColor = .red
+        testImageView.backgroundColor = .systemGray6
+        testImageView.layer.cornerRadius = 4
         eventPreviewTextView.text = ""
+        eventStackView.axis = .vertical
+        eventStackView.spacing = 8
+        eventStackView.translatesAutoresizingMaskIntoConstraints = false
+//        scrollView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+//        scrollView.translatesAutoresizingMaskIntoConstraints = false
 
         self.configTextRecognitionRequest()
-//        DispatchQueue.global(qos: .userInitiated).async {
             if let image = self.image {
                 self.processImage(image)
             }
-//        }
-        // 순차실행ㅇ 안 되어 옮김
-//        for i in self.transcriptArray {
-//            print("@in")
-//            self.events.append(EventData(text: i))
-//        }
-//        for ev in self.events {
-//            self.eventPreviewTextView.text += ev.toString()
-//        }
     }
 
     @IBAction func addEventAndFinish(_ sender: UIButton) {
@@ -126,7 +122,20 @@ extension MiddleViewController {
         }
         for ev in self.events {
             self.eventPreviewTextView.text += ev.toString()
+            if ev.isValidEvent() {
+//                let dummyview = randomColoredView()
+//                eventStackView.addArrangedSubview(dummyview)
+                eventStackView.addArrangedSubview(EventBox(eventData: ev))
+            }
         }
+    }
+    
+    func randomColoredView() -> UIView {
+        let view = UIView()
+        view.backgroundColor = UIColor(displayP3Red: 1.0, green: .random(in: 0...1), blue: .random(in: 0...1), alpha: .random(in: 0...1))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: .random(in: 100...400)).isActive = true
+        return view
     }
 }
 
