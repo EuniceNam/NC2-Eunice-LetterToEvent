@@ -250,7 +250,7 @@ extension MiddleViewController{
         event.title = eventdata.title
         event.startDate = eventdata.startDate
         event.isAllDay = eventdata.isAllDay
-        if !event.isAllDay && eventdata.endDate == nil {
+        if eventdata.endDate == nil {
             event.endDate = Date.init(timeInterval: 3600, since: event.startDate)
         } else {
             event.endDate = eventdata.endDate
