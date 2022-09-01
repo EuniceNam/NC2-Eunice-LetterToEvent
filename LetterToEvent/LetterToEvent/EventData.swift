@@ -99,9 +99,8 @@ struct EventData {
             } else {
                 if !title.isEmpty {
                     title += " "
-                } else {
-                    title += text
                 }
+                title += text
             }
         }
     }
