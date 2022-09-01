@@ -16,6 +16,7 @@ class MiddleViewController: UIViewController {
 
     var image: UIImage?
     
+    var whichModel = TRModel.VNRv2
     var textRecognitionRequest = VNRecognizeTextRequest()
     var testResultViewController: UIViewController?
 
@@ -35,7 +36,7 @@ class MiddleViewController: UIViewController {
         super.viewDidLoad()
 
         testImageView.image = image
-        testImageView.backgroundColor = .systemGray6
+        testImageView.backgroundColor = .systemGray5
         eventPreviewTextView.text = ""
         eventStackView.axis = .vertical
         eventStackView.spacing = 16

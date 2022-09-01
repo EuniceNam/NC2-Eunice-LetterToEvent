@@ -124,3 +124,8 @@ struct EventData {
         return str
     }
 }
+
+enum TRModel: Int {
+    case VNRv2
+    case MLKit2v3
+}
