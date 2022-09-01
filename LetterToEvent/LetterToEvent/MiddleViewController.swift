@@ -12,6 +12,11 @@ import Vision
 
 import EventKitUI
 
+// MLKit ref: https://silver-g-0114.tistory.com/148 <- 코드는 거의 공식문서 (https://developers.google.com/ml-kit/vision/text-recognition/ios)
+import MLKitTextRecognitionKorean
+import MLKitVision
+import AVFoundation
+
 class MiddleViewController: UIViewController {
 
     var image: UIImage?
@@ -41,32 +46,69 @@ class MiddleViewController: UIViewController {
         eventStackView.axis = .vertical
         eventStackView.spacing = 16
         eventStackView.translatesAutoresizingMaskIntoConstraints = false
-//        scrollView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-//        scrollView.translatesAutoresizingMaskIntoConstraints = false
-
-//        self.configTextRecognitionRequest()
-//            if let image = self.image {
-//                self.processImage(image)
-//            }
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        transcript = ""
+        transcriptArray.removeAll()
+        self.testImageView.image = image
         super.viewWillAppear(animated)
-        if whichModel == .VNRv2 {
-            self.configTextRecognitionRequest()
-            if let image = self.image {
+        
+        if let image = self.image {
+            if whichModel == .VNRv2 {
+                self.configTextRecognitionRequest()
                 self.processImage(image)
+            } else if whichModel == .MLKit2v3 {
+                self.processKorImage(image)
+            } else {
+                print("whichModel wrong: \(whichModel)")
             }
-        } else if whichModel == .MLKit2v3 {
-            
-        } else {
-            print("whichModel wrong: \(whichModel)")
         }
-        print("viewWillAppear called")
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.testImageView.image = image
+    }
+    
+    func processKorImage(_ image: UIImage) {
+        let koreanOptions = KoreanTextRecognizerOptions()
+        let koreanTextRecognizer = TextRecognizer.textRecognizer(options: koreanOptions)
+        let visionImage = VisionImage(image: image)
+        // 이미지 방향 - 혹시 정확도 떨어지면 바꾸기
+        visionImage.orientation = .up
+        koreanTextRecognizer.process(visionImage) { result, error in
+          guard error == nil, let result = result else {
+            // Error handling
+            return
+          }
+          // Recognized text
+            let resultText = result.text
+            for block in result.blocks {
+                for line in block.lines {
+                    self.transcript += line.text
+                    self.transcriptArray.append(line.text)
+                }
+            }
+            self.ArrayToEventData()
+        }
+    }
+          
+    // open PHPicker
+    @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
+        print("tapped")
+        var configuration = PHPickerConfiguration(photoLibrary: .shared())
+        configuration.filter = PHPickerFilter.images
+        configuration.preferredAssetRepresentationMode = .current
+        configuration.selection = .ordered
+        configuration.selectionLimit = 1
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
     @IBAction func selectionChanged(_ sender: UISegmentedControl) {
-//        print("sC")
         switch sender.selectedSegmentIndex {
         case 0:
             whichModel = .VNRv2
@@ -107,7 +149,6 @@ class MiddleViewController: UIViewController {
             if let results = request.results, !results.isEmpty {
                 if let requestResults = request.results as? [VNRecognizedTextObservation] {
                     DispatchQueue.main.async {
-                        // print("requestResults: \(requestResults)")
                         self.addRecognizedText(recognizedText: requestResults)
                     }
                 }
@@ -142,35 +183,35 @@ extension MiddleViewController {
             }
             self.transcriptArray.append(candidate.string)
             transcript += candidate.string
-            // print(transcript)
             // 줄 별로 읽기 시도하기 <- 지금은 모르겠음
             transcript += "\n"
         }
         textView?.text = transcript
         
         // viewDidLoad에서 하면 안 됨 (결과가 늦게 와서)
+        self.ArrayToEventData()
+    }
+    
+    func ArrayToEventData() {
+        // array 비우고 시작
+        self.events.removeAll()
+        eventPreviewTextView.text = ""
+        eventStackView.arrangedSubviews.forEach {
+            eventStackView.removeArrangedSubview($0)
+            $0.removeFromSuperview()
+        }
         for i in self.transcriptArray {
             self.events.append(EventData(text: i))
         }
         for ev in self.events {
             self.eventPreviewTextView.text += ev.toString()
             if ev.isValidEvent() {
-//                let dummyview = randomColoredView()
-//                eventStackView.addArrangedSubview(dummyview)
                 let tmpview = EventBox(eventData: ev)
                 eventStackView.addArrangedSubview(tmpview)
                 
                 print(ev.title)
             }
         }
-    }
-    
-    func randomColoredView() -> UIView {
-        let view = UIView()
-        view.backgroundColor = UIColor(displayP3Red: 1.0, green: .random(in: 0...1), blue: .random(in: 0...1), alpha: .random(in: 0...1))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: .random(in: 10...40)).isActive = true
-        return view
     }
 }
 
@@ -209,6 +250,28 @@ extension MiddleViewController{
             try eventStore.save(event, span: .thisEvent, commit: true)
         } catch {
             print(error)
+        }
+    }
+}
+
+extension MiddleViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        // 고른 사진 없음
+        guard let itemProvider = results.first?.itemProvider else {
+            print("results.first is nil")
+            return
+        }
+        // 고른 사진을 넘김
+        if itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                DispatchQueue.main.async {
+                    self.image = image as? UIImage
+                    if let image = self.image {
+                        self.testImageView.image = image
+                    }
+                }
+            }
         }
     }
 }
