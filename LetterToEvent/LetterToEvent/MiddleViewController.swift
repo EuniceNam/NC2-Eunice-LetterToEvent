@@ -83,13 +83,14 @@ class MiddleViewController: UIViewController {
             return
           }
           // Recognized text
-            let resultText = result.text
             for block in result.blocks {
                 for line in block.lines {
                     self.transcript += line.text
+                    self.transcript += "\n"
                     self.transcriptArray.append(line.text)
                 }
             }
+            self.textView?.text = self.transcript
             self.ArrayToEventData()
         }
     }
@@ -126,21 +127,30 @@ class MiddleViewController: UIViewController {
     }
     @IBAction func addEventAndFinish(_ sender: UIButton) {
         // auth 확인 후 등록
+        var eventcnt = 0
         for ev in self.events {
             if ev.isValidEvent() {
+                eventcnt += 1
                 if checkEventAuth() {
                     addEvent(eventdata: ev)
-                    // 캘린더 열기
-                    // 해당 날짜로 열기는 지금 안 함
-                    if let calendarUrl = URL(string: "calshow://") {
-                        if UIApplication.shared.canOpenURL(calendarUrl) {
-                            UIApplication.shared.open(calendarUrl)
-                        }
-                    }
-                    // 홈으로 가기
-                    navigationController?.popToRootViewController(animated: true)
                 }
             }
+        }
+        if eventcnt > 0 {
+        // 캘린더 열기
+        // 해당 날짜로 열기는 지금 안 함
+            if let calendarUrl = URL(string: "calshow://") {
+                if UIApplication.shared.canOpenURL(calendarUrl) {
+                    UIApplication.shared.open(calendarUrl)
+                }
+            }
+            // 홈으로 가기
+            navigationController?.popToRootViewController(animated: true)
+        } else {
+            let noEventAlert = UIAlertController(title: "저장할 일정이 없습니다", message: "", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "확인", style: .default, handler: nil)
+            noEventAlert.addAction(ok)
+            self.present(noEventAlert, animated: true)
         }
     }
 
@@ -265,8 +275,8 @@ extension MiddleViewController: PHPickerViewControllerDelegate {
         // 고른 사진을 넘김
         if itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                self.image = image as? UIImage
                 DispatchQueue.main.async {
-                    self.image = image as? UIImage
                     if let image = self.image {
                         self.testImageView.image = image
                     }
