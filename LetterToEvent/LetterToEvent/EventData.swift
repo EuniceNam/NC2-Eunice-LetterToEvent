@@ -51,11 +51,12 @@ struct EventData {
                 }
             } else if word.contains("@") {
                 let tmpArr = word.components(separatedBy: "@")
-                if !tmpArr[0].isEmpty {
+                print(tmpArr)
+                if tmpArr[0] == "" {
                     elseText(tmpArr[0])
                 }
                 isLocationExist = true
-                if !tmpArr[1].isEmpty {
+                if tmpArr[1] == "" {
                     elseText(tmpArr[1])
                 }
             }
@@ -63,7 +64,7 @@ struct EventData {
                 elseText(word)
             }
         }
-        if title.isEmpty {
+        if title == "" {
             title = "No title"
         }
         
@@ -97,7 +98,7 @@ struct EventData {
                     location! += text
                 }
             } else {
-                if !title.isEmpty {
+                if title == "" {
                     title += " "
                 }
                 title += text

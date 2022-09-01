@@ -35,7 +35,9 @@ class EventBox: UIStackView {
         title.text = eventData.title
         location.text = eventData.location
         if eventData.isAllDay {
-            startTime.text = "하루 종일"
+            if let dayStr = eventData.startDate?.formatted(date: .abbreviated, time: .omitted) {
+                startTime.text = dayStr + "  하루 종일"
+            }
         } else {
             startTime.text = eventData.startDate?.formatted(date: .abbreviated, time: .shortened)
             if eventData.endDate == nil {
