@@ -87,6 +87,9 @@
                                     <segment title="VN...Revision2"/>
                                     <segment title="MLKit2.3"/>
                                 </segments>
+                                <connections>
+                                    <action selector="selectionChanged:" destination="ud4-UF-MOh" eventType="valueChanged" id="giq-gb-3YH"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="읽은 내용" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z32-c0-QBN">
                                 <rect key="frame" x="30" y="230" width="354" height="21"/>

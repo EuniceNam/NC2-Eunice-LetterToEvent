@@ -44,12 +44,44 @@ class MiddleViewController: UIViewController {
 //        scrollView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
 //        scrollView.translatesAutoresizingMaskIntoConstraints = false
 
-        self.configTextRecognitionRequest()
+//        self.configTextRecognitionRequest()
+//            if let image = self.image {
+//                self.processImage(image)
+//            }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if whichModel == .VNRv2 {
+            self.configTextRecognitionRequest()
             if let image = self.image {
                 self.processImage(image)
             }
+        } else if whichModel == .MLKit2v3 {
+            
+        } else {
+            print("whichModel wrong: \(whichModel)")
+        }
+        print("viewWillAppear called")
     }
 
+    @IBAction func selectionChanged(_ sender: UISegmentedControl) {
+//        print("sC")
+        switch sender.selectedSegmentIndex {
+        case 0:
+            whichModel = .VNRv2
+            // 이게 맞는 방법인지 모르겠음
+            // 추후 이 뷰의 내용물을 테이블뷰로 변경 후 tableview.reload로 수정할 예정
+            // scrollview만이라면 UIRefreshControl도 있음
+            viewWillAppear(true)
+        case 1:
+            whichModel = .MLKit2v3
+            viewWillAppear(true)
+        default:
+            print("segment control default")
+            break
+        }
+    }
     @IBAction func addEventAndFinish(_ sender: UIButton) {
         // auth 확인 후 등록
         for ev in self.events {
