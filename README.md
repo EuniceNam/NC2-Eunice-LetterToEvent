@@ -4,3 +4,5 @@
 손글씨는 어렵네요
 
 iOS 한글인식이 되면서 추후 손글씨를 잘 쓰는 유저를 가정하고 Vision만으로 개발 가능성 있음
+
+![image](https://user-images.githubusercontent.com/18394923/198889557-34e8cb37-5c46-4980-9865-bad0e098c012.png)
