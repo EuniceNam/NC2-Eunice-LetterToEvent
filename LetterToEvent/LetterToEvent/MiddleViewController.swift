@@ -11,10 +11,6 @@ import VisionKit
 import Vision
 
 import EventKitUI
-
-// MLKit ref: https://silver-g-0114.tistory.com/148 <- 코드는 거의 공식문서 (https://developers.google.com/ml-kit/vision/text-recognition/ios)
-import MLKitTextRecognitionKorean
-import MLKitVision
 import AVFoundation
 
 class MiddleViewController: UIViewController {
@@ -72,27 +68,28 @@ class MiddleViewController: UIViewController {
     }
     
     func processKorImage(_ image: UIImage) {
-        let koreanOptions = KoreanTextRecognizerOptions()
-        let koreanTextRecognizer = TextRecognizer.textRecognizer(options: koreanOptions)
-        let visionImage = VisionImage(image: image)
-        // 이미지 방향 - 혹시 정확도 떨어지면 바꾸기
-        visionImage.orientation = .up
-        koreanTextRecognizer.process(visionImage) { result, error in
-          guard error == nil, let result = result else {
-            // Error handling
-            return
-          }
-          // Recognized text
-            for block in result.blocks {
-                for line in block.lines {
-                    self.transcript += line.text
-                    self.transcript += "\n"
-                    self.transcriptArray.append(line.text)
-                }
-            }
-            self.textView?.text = self.transcript
-            self.ArrayToEventData()
-        }
+        self.textView?.text = "MLKit2.3(한국어) 해제"
+//        let koreanOptions = KoreanTextRecognizerOptions()
+//        let koreanTextRecognizer = TextRecognizer.textRecognizer(options: koreanOptions)
+//        let visionImage = VisionImage(image: image)
+//        // 이미지 방향 - 혹시 정확도 떨어지면 바꾸기
+//        visionImage.orientation = .up
+//        koreanTextRecognizer.process(visionImage) { result, error in
+//          guard error == nil, let result = result else {
+//            // Error handling
+//            return
+//          }
+//          // Recognized text
+//            for block in result.blocks {
+//                for line in block.lines {
+//                    self.transcript += line.text
+//                    self.transcript += "\n"
+//                    self.transcriptArray.append(line.text)
+//                }
+//            }
+//            self.textView?.text = self.transcript
+//            self.ArrayToEventData()
+//        }
     }
           
     // open PHPicker
