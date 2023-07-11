@@ -115,8 +115,9 @@ class MiddleViewController: UIViewController {
                 self.textView?.text = "No text detected"
             }
         })
-        textRecognitionRequest.recognitionLevel = .accurate
+        textRecognitionRequest.automaticallyDetectsLanguage = true
         textRecognitionRequest.usesLanguageCorrection = true
+        textRecognitionRequest.recognitionLevel = .accurate
     }
 
     private func processImage(_ image: UIImage) {
