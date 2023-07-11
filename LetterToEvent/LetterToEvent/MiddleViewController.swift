@@ -44,20 +44,8 @@ class MiddleViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        transcript = ""
-        transcriptArray.removeAll()
-        self.testImageView.image = image
         super.viewWillAppear(animated)
-        
-        if let image = self.image {
-                self.configTextRecognitionRequest()
-                self.processImage(image)
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.testImageView.image = image
+        updateImageAndTexts()
     }
 
     // open PHPicker
@@ -100,6 +88,16 @@ class MiddleViewController: UIViewController {
             let ok = UIAlertAction(title: "확인", style: .default, handler: nil)
             noEventAlert.addAction(ok)
             self.present(noEventAlert, animated: true)
+        }
+    }
+
+    private func updateImageAndTexts() {
+        transcript = ""
+        transcriptArray.removeAll()
+        self.testImageView.image = image
+        if let image = self.image {
+            self.configTextRecognitionRequest()
+            self.processImage(image)
         }
     }
 
@@ -227,9 +225,7 @@ extension MiddleViewController: PHPickerViewControllerDelegate {
             itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                 self.image = image as? UIImage
                 DispatchQueue.main.async {
-                    if let image = self.image {
-                        self.testImageView.image = image
-                    }
+                    self.updateImageAndTexts()
                 }
             }
         }
