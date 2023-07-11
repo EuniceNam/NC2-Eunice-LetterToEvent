@@ -17,7 +17,6 @@ class MiddleViewController: UIViewController {
 
     var image: UIImage?
     
-    var whichModel = TRModel.VNRv2
     var textRecognitionRequest = VNRecognizeTextRequest()
     var testResultViewController: UIViewController?
 
@@ -51,14 +50,8 @@ class MiddleViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if let image = self.image {
-            if whichModel == .VNRv2 {
                 self.configTextRecognitionRequest()
                 self.processImage(image)
-            } else if whichModel == .MLKit2v3 {
-                self.processKorImage(image)
-            } else {
-                print("whichModel wrong: \(whichModel)")
-            }
         }
     }
     
@@ -66,32 +59,7 @@ class MiddleViewController: UIViewController {
         super.viewWillDisappear(animated)
         self.testImageView.image = image
     }
-    
-    func processKorImage(_ image: UIImage) {
-        self.textView?.text = "MLKit2.3(한국어) 해제"
-//        let koreanOptions = KoreanTextRecognizerOptions()
-//        let koreanTextRecognizer = TextRecognizer.textRecognizer(options: koreanOptions)
-//        let visionImage = VisionImage(image: image)
-//        // 이미지 방향 - 혹시 정확도 떨어지면 바꾸기
-//        visionImage.orientation = .up
-//        koreanTextRecognizer.process(visionImage) { result, error in
-//          guard error == nil, let result = result else {
-//            // Error handling
-//            return
-//          }
-//          // Recognized text
-//            for block in result.blocks {
-//                for line in block.lines {
-//                    self.transcript += line.text
-//                    self.transcript += "\n"
-//                    self.transcriptArray.append(line.text)
-//                }
-//            }
-//            self.textView?.text = self.transcript
-//            self.ArrayToEventData()
-//        }
-    }
-          
+
     // open PHPicker
     @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
         print("tapped")
@@ -106,22 +74,6 @@ class MiddleViewController: UIViewController {
         present(picker, animated: true)
     }
     
-    @IBAction func selectionChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            whichModel = .VNRv2
-            // 이게 맞는 방법인지 모르겠음
-            // 추후 이 뷰의 내용물을 테이블뷰로 변경 후 tableview.reload로 수정할 예정
-            // scrollview만이라면 UIRefreshControl도 있음
-            viewWillAppear(true)
-        case 1:
-            whichModel = .MLKit2v3
-            viewWillAppear(true)
-        default:
-            print("segment control default")
-            break
-        }
-    }
     @IBAction func addEventAndFinish(_ sender: UIButton) {
         // auth 확인 후 등록
         var eventcnt = 0
